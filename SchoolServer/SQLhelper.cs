@@ -10,6 +10,17 @@ namespace ServerSide
 {
     public class SQLhelper
     {
+        internal static string GetStringSha256Hash(string text)
+        {
+            if (String.IsNullOrEmpty(text)) return String.Empty;
+
+            using (var sha = System.Security.Cryptography.SHA256.Create())
+            {
+                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
+                byte[] hash = sha.ComputeHash(textData);
+                return BitConverter.ToString(hash).Replace("-", String.Empty);
+            }
+        }
         public static SQLiteConnection? CreateDatabase()
         {
             if (!File.Exists("School.db"))
@@ -37,6 +48,19 @@ namespace ServerSide
                 command = new SQLiteCommand(sql, connection); // Создаем команду
                 command.ExecuteNonQuery(); // Выполняем команду
 
+                // Create default users if they don't exist
+                if (!IsUserExist(connection, "admin"))
+                {
+                    NewUser(connection, 0, "admin", "admin", true);
+                }
+                if (!IsUserExist(connection, "student"))
+                {
+                    NewUser(connection, 1, "student", "student", true);
+                }
+                if (!IsUserExist(connection, "teacher"))
+                {
+                    NewUser(connection, 2, "teacher", "teacher", false);
+                }
                 return connection; // Возвращаем подключение к базе данных
             }
             catch
@@ -52,14 +76,14 @@ namespace ServerSide
             SQLiteCommand command = new SQLiteCommand(sql, connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", password);
+            command.Parameters.AddWithValue("@password", GetStringSha256Hash(password));
             command.Parameters.AddWithValue("@isStudent", isStudent);
             command.ExecuteNonQuery();
         }
 
         public static bool CheckUser(SQLiteConnection connection, string username, string password)
         {
-            string sql = "select * from users where username = '" + username + "' and password = '" + password + "'"; // Создаем запрос на проверку пользователя
+            string sql = "select * from users where username = '" + username + "' and password = '" + GetStringSha256Hash(password) + "'"; // Создаем запрос на проверку пользователя
             // example sql query: select * from users where username = 'admin' and password = '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918'
             SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
             SQLiteDataReader reader = command.ExecuteReader(); // Создаем читателя

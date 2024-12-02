@@ -1,0 +1,10 @@
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\SchoolClient.exe.config
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\SchoolClient.exe
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\SchoolClient.pdb
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.csproj.AssemblyReference.cache
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.LoginScreen.resources
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.Properties.Resources.resources
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.csproj.GenerateResource.cache
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.csproj.CoreCompileInputs.cache
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.exe
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.pdb
