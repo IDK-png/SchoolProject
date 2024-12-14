@@ -1,0 +1,5 @@
+C:\Users\maxda\source\repos\SchoolServer\SchoolServer\obj\Debug\net5.0\SchoolServer.csproj.AssemblyReference.cache
+C:\Users\maxda\source\repos\SchoolServer\SchoolServer\obj\Debug\net5.0\SchoolServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maxda\source\repos\SchoolServer\SchoolServer\obj\Debug\net5.0\SchoolServer.AssemblyInfoInputs.cache
+C:\Users\maxda\source\repos\SchoolServer\SchoolServer\obj\Debug\net5.0\SchoolServer.AssemblyInfo.cs
+C:\Users\maxda\source\repos\SchoolServer\SchoolServer\obj\Debug\net5.0\SchoolServer.csproj.CoreCompileInputs.cache

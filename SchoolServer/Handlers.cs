@@ -17,50 +17,58 @@ namespace ServerSide
             NetworkStream stream = client.GetStream(); // Получаем поток клиента
             byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
             int bytesRead; // Переменная для количества прочитанных байт
-
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+            try // Обработка исключений
             {
-                string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
-
-                message.Trim(); // Удаляем лишние пробелы
-
-                if ((message[0]-0)>32) // Проверка на то что первый символ в сообщении - это буква
+                while (client.Connected && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
                 {
-                    Console.WriteLine("Received: " + message); // {username, password}
-                    
-                    Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Десериализуем сообщение
-                    if (json == null) // Проверка на успешное десериализацию
+                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
+
+                    message.Trim(); // Удаляем лишние пробелы
+
+                    if ((message[0] - 0) > 32) // Проверка на то что первый символ в сообщении - это буква
                     {
-                        Console.WriteLine("Error while deserializing message.");
-                        // example json format: {"username": "admin", "password": "admin"}
-                    }
-                    else
-                    {
-                        if (json.ContainsKey("username") && json.ContainsKey("password"))
+                        Console.WriteLine("Received: " + message); // {username, password}
+
+                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Десериализуем сообщение
+                        if (json == null) // Проверка на успешное десериализацию
                         {
-                            Console.WriteLine("Deserialized: " + json["username"] + " " + json["password"]); // Выводим десериализованное сообщение
-                           
-                            Dictionary<string, string> status = new Dictionary<string, string>(); // Создаем словарь для ответа
-                            if(SQLhelper.CheckUser(SchoolServer.connection!, json["username"], json["password"])) // Проверка на наличие пользователя в базе данных
+                            Console.WriteLine("Error while deserializing message.");
+                            // example json format: {"username": "admin", "password": "admin"}
+                        }
+                        else
+                        {
+                            if (json.ContainsKey("username") && json.ContainsKey("password"))
                             {
-                                status.Add("status", "Login successful"); // Создаем ответ
-                                byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
-                                stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
-                                ClientHandler(client);
-                                // И тут переход к следующему Handler
-                            }
-                            else
-                            {
-                                status.Add("status", "Login failed"); // Создаем ответ
-                                byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
-                                stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                                Console.WriteLine("Deserialized: " + json["username"] + " " + json["password"]); // Выводим десериализованное сообщение
+
+                                Dictionary<string, string> status = new Dictionary<string, string>(); // Создаем словарь для ответа
+                                if (SQLhelper.CheckUser(SchoolServer.connection!, json["username"], json["password"])) // Проверка на наличие пользователя в базе данных
+                                {
+                                    status.Add("status", "Login successful"); // Создаем ответ
+                                    byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
+                                    stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                                    ClientHandler(client);
+                                    // И тут переход к следующему Handler
+                                }
+                                else
+                                {
+                                    status.Add("status", "Login failed"); // Создаем ответ
+                                    byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
+                                    stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                                }
                             }
                         }
                     }
                 }
             }
-            client.Close();
-            Console.WriteLine("Client disconnected.");
+            catch (IOException)
+            {
+                Console.WriteLine("Client disconnected.");
+            }
+            finally
+            {
+                client.Close();
+            }
         }
 
         public static void ClientHandler(object obj)
@@ -69,18 +77,33 @@ namespace ServerSide
             NetworkStream stream = client.GetStream(); // Получаем поток клиента
             byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
             int bytesRead; // Переменная для количества прочитанных байт
-
-            while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+            try
             {
-                string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
-
-                message.Trim(); // Удаляем лишние пробелы
-
-                if ((message[0]-0)>32) // Проверка на то что первый символ в сообщении - это буква
+                while (client.Connected && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
                 {
-                    Console.WriteLine("Received: " + message); // {username, password}
+                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
+
+                    message.Trim(); // Удаляем лишние пробелы
+
+                    if ((message[0] - 0) > 32) // Проверка на то что первый символ в сообщении - это буква
+                    {
+                        Console.WriteLine("Received: " + message); // {username, password}
+                    }
                 }
             }
+            catch (IOException)
+            {
+                Console.WriteLine("Client disconnected.");
+            }
+            finally
+            {
+                client.Close();
+            }
+        }
+
+        public static string SearchStudentsByParams(Dictionary<string, string> json)
+        {
+            return SQLhelper.GetStudentsByParams(SchoolServer.connection!, json["name"], json["surname"], json["age"], json["grade"], json["megamot"]);
         }
     }
 }

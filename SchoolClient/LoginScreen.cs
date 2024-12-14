@@ -32,6 +32,13 @@ namespace SchoolClient
             int bytesRead = client.Client.Receive(buffer);
             string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
             
+            if(response.Contains("Login successful"))
+            {
+                HomePage mainScreen = new HomePage();
+                mainScreen.Show();
+                this.Hide();
+            }
+
             MessageBox.Show(response);
         }
     }

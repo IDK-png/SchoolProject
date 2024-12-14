@@ -70,6 +70,30 @@ namespace ServerSide
             }
         }
 
+        public static string GetStudentsByParams(SQLiteConnection connection, string name, string surname, string age, string grade, string megamot)
+        {
+            List<string> conditions = new List<string>();
+            if (!string.IsNullOrEmpty(name)) conditions.Add("name = '" + name + "'");
+            if (!string.IsNullOrEmpty(surname)) conditions.Add("surname = '" + surname + "'");
+            if (!string.IsNullOrEmpty(age)) conditions.Add("age = " + age);
+            if (!string.IsNullOrEmpty(grade)) conditions.Add("grade = " + grade);
+            if (!string.IsNullOrEmpty(megamot)) conditions.Add("megamot = '" + megamot + "'");
+
+            string sql = "select * from students";
+            if (conditions.Count > 0)
+            {
+            sql += " where " + string.Join(" and ", conditions);
+            }
+
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            StringBuilder result = new StringBuilder();
+            while (reader.Read())
+            {
+            result.AppendLine($"{reader["id"]} {reader["name"]} {reader["surname"]} {reader["age"]} {reader["grade"]} {reader["megamot"]}");
+            }
+            return result.ToString();
+        }
         public static void NewUser(SQLiteConnection connection, int id, string username, string password, bool isStudent)
         {
             string sql = "insert into users (id, username, password, isStudent) values (@id, @username, @password, @isStudent)"; // Создаем запрос на добавление пользователя
