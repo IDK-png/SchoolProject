@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Net.Sockets;
 
 namespace SchoolClient
 {
@@ -46,12 +47,18 @@ namespace SchoolClient
             Connection connection = Connection.Instance;
             TcpClient client = connection.client;
             // Format of the message is : {"name": "", "surname": "", "age": "", "grade": "", "course": ""}
-            client.Client.Send(Encoding.ASCII.GetBytes("{\"name\": \"" + textBox1.Text + "\", \"surname\": \"" + textBox2.Text + "\", \"age\": \"" + textBox3.Text + "\", \"grade\": \"" + textBox4.Text + "\", \"course\": \"" + textBox5.Text + "\"}"));
-
+            client.Client.Send(Encoding.ASCII.GetBytes("{\"name\": \"" + textBox1.Text + "\", \"surname\": \"" + textBox2.Text + "\", \"age\": \"" + textBox3.Text + "\", \"grade\": \"" + textBox4.Text + "\", \"megamot\": \"" + textBox5.Text + "\"}"));
             byte[] buffer = new byte[1024];
             int bytesRead = client.Client.Receive(buffer);
             string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            
+
+            string[] x = response.Split(' ');
+            response = "";
+            for (int i=0; i<x.Length-5; i+=5)
+            {
+                response += "Name: " + x[i + 1] + "\nSurname: " + x[i + 2] + "\nAge: " + x[i + 3] + "\nGrade: " + x[i + 4] + "\n\n";
+            }
+
             //if(response.Contains("Login successful"))
             //{
             //    HomePage mainScreen = new HomePage();
@@ -85,6 +92,13 @@ namespace SchoolClient
         private void SearchStudents_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            HomePage mainScreen = new HomePage();
+            mainScreen.Show();
+            this.Hide();
         }
     }
 }

@@ -31,7 +31,14 @@ namespace ServerSide
 
             Console.WriteLine("Server started on port " + port); // Выводим сообщение о запуске сервера
 
-
+            // Add with SQLhelper.AddStudent 10 random students with israeli names and chemistry/biology/math in megamot argument
+            // name, surname, age, grade, subject
+            SQLhelper.AddStudent(connection, "Moshe", "Cohen", 16, 10, "math");
+            SQLhelper.AddStudent(connection, "Yosef", "Ben-David", 15, 9, "chemistry");
+            SQLhelper.AddStudent(connection, "Avraham", "Cohen", 16, 10, "math");
+            SQLhelper.AddStudent(connection, "Yitzhak", "Levi", 17, 11, "biology");
+            SQLhelper.AddStudent(connection, "Yaakov", "Ben-David", 15, 9, "chemistry");
+            SQLhelper.AddStudent(connection, "David", "Levi", 17, 11, "biology");
             while (_isRunning) // Бесконечный цикл для принятия множество клиентов
             {
                 TcpClient newClient = _server.AcceptTcpClient(); // Принимаем нового клиента

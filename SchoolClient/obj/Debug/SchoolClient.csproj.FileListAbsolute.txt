@@ -9,3 +9,4 @@ C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.csp
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.exe
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.pdb
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.HomePage.resources
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.SearchStudents.resources

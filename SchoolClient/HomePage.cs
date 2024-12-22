@@ -16,5 +16,12 @@ namespace SchoolClient
         {
             InitializeComponent();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SearchStudents mainScreen = new SearchStudents();
+            mainScreen.Show();
+            this.Hide();
+        }
     }
 }

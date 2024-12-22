@@ -88,6 +88,23 @@ namespace ServerSide
                     if ((message[0] - 0) > 32) // Проверка на то что первый символ в сообщении - это буква
                     {
                         Console.WriteLine("Received: " + message); // {username, password}
+                        // example json format: {"name": "Moshe", "surname": "Cohen", "age": "16", "grade": "10", "megamot": "math"}
+                        // Convert json to dictionary
+                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Десериализуем сообщение
+                        if (json == null) // Проверка на успешное десериализацию
+                        {
+                            byte[] response = Encoding.ASCII.GetBytes("Not found!" + "\n"); // Создаем ответ
+                            stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                            ClientHandler(client);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Deserialized: " + json["name"] + " " + json["surname"] + " " + json["age"] + " " + json["grade"] + " " + json["megamot"]); // Выводим десериализованное сообщение
+
+                            string response = SearchStudentsByParams(json);
+                            byte[] responseBytes = Encoding.ASCII.GetBytes(response + "\n");
+                            stream.Write(responseBytes, 0, responseBytes.Length);
+                        }
                     }
                 }
             }

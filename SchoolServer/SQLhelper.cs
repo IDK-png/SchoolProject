@@ -132,7 +132,7 @@ namespace ServerSide
                 Console.WriteLine("Student with this name already exists.");
                 return; // Возвращаемся если студент с таким именем уже существует
             }
-            NewUser(connection, id, name, "123", true); // Создаем нового пользователя(Пароль он меняет после входа)
+            //NewUser(connection, id, name, "123", true); // Создаем нового пользователя(Пароль он меняет после входа)
             command.ExecuteNonQuery(); // Выполняем команду
         }
 
