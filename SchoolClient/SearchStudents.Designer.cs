@@ -160,11 +160,11 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(28, 167);
+            this.label2.Location = new System.Drawing.Point(91, 167);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(101, 20);
+            this.label2.Size = new System.Drawing.Size(38, 20);
             this.label2.TabIndex = 30;
-            this.label2.Text = "Year Of Birth";
+            this.label2.Text = "Age";
             // 
             // label3
             // 

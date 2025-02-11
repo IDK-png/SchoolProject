@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sayftZFTAIQ=",
+  "dgSpecHash": "3/W53OjJ0L4=",
   "success": true,
   "projectFilePath": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.csproj",
   "expectedPackageFiles": [
@@ -32,36 +32,5 @@
     "C:\\Users\\maxda\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.36\\microsoft.aspnetcore.app.ref.6.0.36.nupkg.sha512",
     "C:\\Users\\maxda\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.36\\microsoft.netcore.app.host.win-x64.6.0.36.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-8g2p-5pqh-5jmc",
-      "libraryId": "System.Data.SqlClient",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1903",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Data.SqlClient' 4.8.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-98g6-xh36-x2p7",
-      "libraryId": "System.Data.SqlClient",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1904",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Drawing.Common' 4.7.0 has a known critical severity vulnerability, https://github.com/advisories/GHSA-rxg9-xrhp-64gj",
-      "libraryId": "System.Drawing.Common",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

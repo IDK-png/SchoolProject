@@ -31,9 +31,23 @@ namespace SchoolClient
             byte[] buffer = new byte[1024];
             int bytesRead = client.Client.Receive(buffer);
             string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
-            
-            if(response.Contains("Login successful"))
+
+            // Deserialize the response
+            Dictionary<string, string> json = JsonHelper.Deserialize<Dictionary<string, string>>(response);
+
+            if (json.ContainsKey("status") && json["status"] == "OK")
             {
+                Connection.LoginInfo["username"] = textBox1.Text;
+                Connection.LoginInfo["password"] = textBox2.Text;
+                if (json.ContainsKey("role") && json["role"] == "teacher")
+                {
+                    Connection.isTeacher = true;
+                }
+                else
+                {
+                    Connection.isTeacher = false;
+                }
+
                 HomePage mainScreen = new HomePage();
                 mainScreen.Show();
                 this.Hide();

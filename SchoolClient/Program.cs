@@ -11,6 +11,8 @@ namespace SchoolClient
     public class Connection
     {
         private static Connection instance = null;
+        public static Dictionary<string, string> LoginInfo = new Dictionary<string, string>();
+        public static bool isTeacher = false;
         private Connection() 
         { 
             try 

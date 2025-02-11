@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Data.SQLite;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ServerSide
 {
@@ -13,7 +14,6 @@ namespace ServerSide
     {
         private static TcpListener? _server; // Сам Listener который отвечает за прослушивание определенного порта
         private static bool _isRunning; // Переменная для проверки работы сервера, не обязательна но удобна
-        public static SQLiteConnection? connection;
         private static int port = 76; // Порт сервера
         static int Main(string[] args) // Main функция
         {
@@ -22,23 +22,22 @@ namespace ServerSide
             _isRunning = true; // Устанавливаем переменную работы сервера в true
 
             Console.WriteLine("Connecting to database...");
-            connection = SQLhelper.CreateDatabase(); // Создаем подключение к базе данных
-            if(connection == null) // Проверка на успешное создание подключения
+            if(SQLhelper.CreateDatabase() == null)
             {
-                Console.WriteLine("Error while connecting to database.");
-                return 1; // Возвращаем 1 если произошла ошибка при создании/открытии базы данных
+                Console.WriteLine("Database connection failed.");
+                return 1;
             }
 
             Console.WriteLine("Server started on port " + port); // Выводим сообщение о запуске сервера
 
             // Add with SQLhelper.AddStudent 10 random students with israeli names and chemistry/biology/math in megamot argument
             // name, surname, age, grade, subject
-            SQLhelper.AddStudent(connection, "Moshe", "Cohen", 16, 10, "math");
-            SQLhelper.AddStudent(connection, "Yosef", "Ben-David", 15, 9, "chemistry");
-            SQLhelper.AddStudent(connection, "Avraham", "Cohen", 16, 10, "math");
-            SQLhelper.AddStudent(connection, "Yitzhak", "Levi", 17, 11, "biology");
-            SQLhelper.AddStudent(connection, "Yaakov", "Ben-David", 15, 9, "chemistry");
-            SQLhelper.AddStudent(connection, "David", "Levi", 17, 11, "biology");
+            SQLhelper.AddStudent("Moshe", "Cohen", 16, 10, "math");
+            SQLhelper.AddStudent("Yosef", "Ben-David", 15, 9, "chemistry");
+            SQLhelper.AddStudent("Avraham", "Cohen", 16, 10, "math");
+            SQLhelper.AddStudent("Yitzhak", "Levi", 17, 11, "biology");
+            SQLhelper.AddStudent("Yaakov", "Ben-David", 15, 9, "chemistry");
+            SQLhelper.AddStudent("David", "Levi", 17, 11, "biology");
             while (_isRunning) // Бесконечный цикл для принятия множество клиентов
             {
                 TcpClient newClient = _server.AcceptTcpClient(); // Принимаем нового клиента

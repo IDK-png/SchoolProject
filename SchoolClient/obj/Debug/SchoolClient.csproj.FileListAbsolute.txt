@@ -10,3 +10,9 @@ C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.exe
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.pdb
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.HomePage.resources
 C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolClient.SearchStudents.resources
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\json\Newtonsoft.Json.pdb
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\json\Newtonsoft.Json.xml
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\Newtonsoft.Json.pdb
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\bin\Debug\Newtonsoft.Json.xml
+C:\Users\maxda\source\repos\SchoolClient\SchoolClient\obj\Debug\SchoolCl.9A4AE2CE.Up2Date

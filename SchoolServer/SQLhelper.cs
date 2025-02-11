@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,68 +11,69 @@ namespace ServerSide
 {
     public class SQLhelper
     {
+        private static SQLiteConnection? connection;
+
         internal static string GetStringSha256Hash(string text)
         {
             if (String.IsNullOrEmpty(text)) return String.Empty;
-
             using (var sha = System.Security.Cryptography.SHA256.Create())
             {
-                byte[] textData = System.Text.Encoding.UTF8.GetBytes(text);
+                byte[] textData = Encoding.UTF8.GetBytes(text);
                 byte[] hash = sha.ComputeHash(textData);
                 return BitConverter.ToString(hash).Replace("-", String.Empty);
             }
         }
+
         public static SQLiteConnection? CreateDatabase()
         {
             if (!File.Exists("School.db"))
             {
-                SQLiteConnection.CreateFile("School.db"); // Создаем базу данных, если она не существует
+                SQLiteConnection.CreateFile("School.db");
             }
-            SQLiteConnection connection = new SQLiteConnection("Data Source=School.db;Version=3;"); // Создаем подключение к базе данных
-
+            connection = new SQLiteConnection("Data Source=School.db;Version=3;");
             try
             {
-                connection.Open(); // Открываем подключение
-                string sql = "CREATE TABLE IF NOT EXISTS students (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, surname TEXT NOT NULL, age INTEGER NOT NULL, grade INTEGER NOT NULL, megamot TEXT)"; // Создаем таблицу студентов
-                SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-                command.ExecuteNonQuery(); // Выполняем команду
+                connection.Open();
+                string sql = "CREATE TABLE IF NOT EXISTS students (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, surname TEXT NOT NULL, age INTEGER NOT NULL, grade INTEGER NOT NULL, megamot TEXT)";
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-                sql = "CREATE TABLE IF NOT EXISTS users (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, isStudent INTEGER NOT NULL)"; // Создаем таблицу пользователей
-                command = new SQLiteCommand(sql, connection); // Создаем команду
-                command.ExecuteNonQuery(); // Выполняем команду
+                sql = "CREATE TABLE IF NOT EXISTS users (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL, password TEXT NOT NULL, isStudent INTEGER NOT NULL)";
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-                sql = "CREATE TABLE IF NOT EXISTS teachers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, surname TEXT NOT NULL, megamot TEXT)"; // Создаем таблицу пользователей
-                command = new SQLiteCommand(sql, connection); // Создаем команду
-                command.ExecuteNonQuery(); // Выполняем команду
+                sql = "CREATE TABLE IF NOT EXISTS teachers (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, name TEXT NOT NULL, surname TEXT NOT NULL, megamot TEXT)";
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-                sql = "CREATE TABLE IF NOT EXISTS marks (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, student_id INTEGER NOT NULL, teacher_id INTEGER NOT NULL, mark INTEGER NOT NULL, date TEXT NOT NULL, megama TEXT NOT NULL)"; // Создаем таблицу пользователей
-                command = new SQLiteCommand(sql, connection); // Создаем команду
-                command.ExecuteNonQuery(); // Выполняем команду
+                sql = "CREATE TABLE IF NOT EXISTS marks (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, student_id INTEGER NOT NULL, teacher_id INTEGER NOT NULL, mark INTEGER NOT NULL, date TEXT NOT NULL, megama TEXT NOT NULL)";
+                command = new SQLiteCommand(sql, connection);
+                command.ExecuteNonQuery();
 
-                // Create default users if they don't exist
-                if (!IsUserExist(connection, "admin"))
+                if (!IsUserExist("admin"))
                 {
-                    NewUser(connection, 0, "admin", "admin", true);
+                    NewUser(0, "admin", "admin", true);
                 }
-                if (!IsUserExist(connection, "student"))
+                if (!IsUserExist("student"))
                 {
-                    NewUser(connection, 1, "student", "student", true);
+                    NewUser(1, "student", "student", true);
                 }
-                if (!IsUserExist(connection, "teacher"))
+                if (!IsUserExist("teacher"))
                 {
-                    NewUser(connection, 2, "teacher", "teacher", false);
+                    NewUser(2, "teacher", "teacher", false);
                 }
-                return connection; // Возвращаем подключение к базе данных
+                return connection;
             }
             catch
             {
                 Console.WriteLine("Error while creating database");
-                return null; // Возвращаем 1 если произошла ошибка при создании/открытии базы данных
+                return null;
             }
         }
 
-        public static string GetStudentsByParams(SQLiteConnection connection, string name, string surname, string age, string grade, string megamot)
+        public static string GetStudentsByParams(string name, string surname, string age, string grade, string megamot)
         {
+            if (connection == null) throw new Exception("Connection is not initialized");
             List<string> conditions = new List<string>();
             if (!string.IsNullOrEmpty(name)) conditions.Add("name = '" + name + "'");
             if (!string.IsNullOrEmpty(surname)) conditions.Add("surname = '" + surname + "'");
@@ -82,7 +84,7 @@ namespace ServerSide
             string sql = "select * from students";
             if (conditions.Count > 0)
             {
-            sql += " where " + string.Join(" and ", conditions);
+                sql += " where " + string.Join(" and ", conditions);
             }
 
             SQLiteCommand command = new SQLiteCommand(sql, connection);
@@ -90,13 +92,15 @@ namespace ServerSide
             StringBuilder result = new StringBuilder();
             while (reader.Read())
             {
-            result.AppendLine($"{reader["id"]} {reader["name"]} {reader["surname"]} {reader["age"]} {reader["grade"]} {reader["megamot"]}");
+                result.AppendLine($"{reader["id"]} {reader["name"]} {reader["surname"]} {reader["age"]} {reader["grade"]} {reader["megamot"]}");
             }
             return result.ToString();
         }
-        public static void NewUser(SQLiteConnection connection, int id, string username, string password, bool isStudent)
+
+        public static void NewUser(int id, string username, string password, bool isStudent)
         {
-            string sql = "insert into users (id, username, password, isStudent) values (@id, @username, @password, @isStudent)"; // Создаем запрос на добавление пользователя
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "insert into users (id, username, password, isStudent) values (@id, @username, @password, @isStudent)";
             SQLiteCommand command = new SQLiteCommand(sql, connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@username", username);
@@ -105,96 +109,119 @@ namespace ServerSide
             command.ExecuteNonQuery();
         }
 
-        public static bool CheckUser(SQLiteConnection connection, string username, string password)
+        public static bool CheckUser(string username, string password)
         {
-            string sql = "select * from users where username = '" + username + "' and password = '" + GetStringSha256Hash(password) + "'"; // Создаем запрос на проверку пользователя
-            // example sql query: select * from users where username = 'admin' and password = '8C6976E5B5410415BDE908BD4DEE15DFB167A9C873FC4BB8A81F6F2AB448A918'
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            SQLiteDataReader reader = command.ExecuteReader(); // Создаем читателя
-            return reader.Read(); // Возвращаем результат проверки
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select * from users where username = '" + username + "' and password = '" + GetStringSha256Hash(password) + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.Read();
         }
 
-        public static bool IsUserExist(SQLiteConnection connection, string username)
+        public static bool IsUserExist(string username)
         {
-            string sql = "select * from users where username = '" + username + "'"; // Создаем запрос на проверку пользователя
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            SQLiteDataReader reader = command.ExecuteReader(); // Создаем читателя
-            return reader.Read(); // Возвращаем результат проверки
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select * from users where username = '" + username + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.Read();
         }
 
-        public static void AddStudent(SQLiteConnection connection, string name, string surname, int age, int grade, string megamot)
+        public static void AddStudent(string name, string surname, int age, int grade, string megamot)
         {
-            string sql = "insert into students (name, surname, age, grade, megamot) values ('" + name + "', '" + surname + "', " + age + ", " + grade + ", '" + megamot + "')"; // Создаем запрос на добавление студента
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            int id = GetIdByName(connection, "students", name); // Получаем id студента
-            if (id != -1) // Проверяем что студент с таким именем уже существует
+            if (connection == null) throw new Exception("Connection is not initialized");
+            int id = GetIdByName("students", name);
+            if (id != -1)
             {
                 Console.WriteLine("Student with this name already exists.");
-                return; // Возвращаемся если студент с таким именем уже существует
+                return;
             }
-            //NewUser(connection, id, name, "123", true); // Создаем нового пользователя(Пароль он меняет после входа)
-            command.ExecuteNonQuery(); // Выполняем команду
+            string sql = "insert into students (name, surname, age, grade, megamot) values ('" + name + "', '" + surname + "', " + age + ", " + grade + ", '" + megamot + "')";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            // Если нужно создать пользователя для студента, можно вызвать NewUser после вставки и получения id
+            command.ExecuteNonQuery();
         }
 
-        public static void AddTeacher(SQLiteConnection connection, string name, string surname, string megamot)
+        public static void AddTeacher(string name, string surname, string megamot)
         {
-            string sql = "insert into teachers (name, surname, megamot) values ('" + name + "', '" + surname + "', '" + megamot + "')"; // Создаем запрос на добавление учителя
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            int id = GetIdByName(connection, "teachers", name); // Получаем id учителя
-            if (id != -1) // Проверяем что учитель с таким именем уже существует
+            if (connection == null) throw new Exception("Connection is not initialized");
+            int id = GetIdByName("teachers", name);
+            if (id != -1)
             {
                 Console.WriteLine("Teacher with this name already exists.");
-                return; // Возвращаемся если учитель с таким именем уже существует
+                return;
             }
-            NewUser(connection, id, name, "123", false); // Создаем нового пользователя(Пароль он меняет после входа)
-            command.ExecuteNonQuery(); // Выполняем команду
+            NewUser(id, name, "123", false);
+            string sql = "insert into teachers (name, surname, megamot) values ('" + name + "', '" + surname + "', '" + megamot + "')";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
 
-        public static void DeleteStudent(SQLiteConnection connection, int id)
+        public static void DeleteStudent(int id)
         {
-            string sql = "delete from students where id = " + id; // Создаем запрос на удаление студента
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            command.ExecuteNonQuery(); // Выполняем команду
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "delete from students where id = " + id;
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
 
-        public static int GetIdByName(SQLiteConnection connection, string table, string name)
+        public static int GetIdByName(string table, string name)
         {
-            string sql = "select id from " + table + " where name = '" + name + "'"; // Создаем запрос на получение id студента
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            SQLiteDataReader reader = command.ExecuteReader(); // Создаем читателя
-            while (reader.Read()) // Читаем результат
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select id from " + table + " where name = '" + name + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                return int.Parse(reader["id"].ToString()!); // Возвращаем id студента
+                return int.Parse(reader["id"].ToString()!);
             }
-            return -1; // Возвращаем -1 если студент не найден
+            return -1;
         }
 
-        public static void AddMark(SQLiteConnection connection, int student_id, int teacher_id, int mark, string date, string megama)
+        public static void AddMark(int student_id, int teacher_id, int mark, string date, string megama)
         {
-            string sql = "insert into marks (student_id, teacher_id, mark, date, megama) values (" + student_id + ", " + teacher_id + ", " + mark + ", '" + date + "', '" + megama + "')"; // Создаем запрос на добавление оценки
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            command.ExecuteNonQuery(); // Выполняем команду
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "insert into marks (student_id, teacher_id, mark, date, megama) values (" + student_id + ", " + teacher_id + ", " + mark + ", '" + date + "', '" + megama + "')";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
 
-        public static void DeleteMark(SQLiteConnection connection, int id)
+        public static void DeleteMark(int id)
         {
-            string sql = "delete from marks where id = " + id; // Создаем запрос на удаление оценки
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            command.ExecuteNonQuery(); // Выполняем команду
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "delete from marks where id = " + id;
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
 
-        public static void UpdateMark(SQLiteConnection connection, int id, int mark)
+        public static void UpdateMark(int id, int mark)
         {
-            string sql = "update marks set mark = " + mark + " where id = " + id; // Создаем запрос на обновление оценки
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            command.ExecuteNonQuery(); // Выполняем команду
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "update marks set mark = " + mark + " where id = " + id;
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
 
-        public static void UpdateStudent(SQLiteConnection connection, int id, string name, string surname, int age, int grade, string megamot)
+        public static void UpdateStudent(int id, string name, string surname, int age, int grade, string megamot)
         {
-            string sql = "update students set name = '" + name + "', surname = '" + surname + "', age = " + age + ", grade = " + grade + ", megamot = '" + megamot + "' where id = " + id; // Создаем запрос на обновление студента
-            SQLiteCommand command = new SQLiteCommand(sql, connection); // Создаем команду
-            command.ExecuteNonQuery(); // Выполняем команду
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "update students set name = '" + name + "', surname = '" + surname + "', age = " + age + ", grade = " + grade + ", megamot = '" + megamot + "' where id = " + id;
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.ExecuteNonQuery();
         }
+
+        public static bool IsTeacher(string username)
+        {
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select * from users where username = '" + username + "'";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                return reader["isStudent"].ToString() == "0";
+            }
+            return false;
+        }
+
     }
 }
