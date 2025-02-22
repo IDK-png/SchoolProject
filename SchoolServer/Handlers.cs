@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Reflection;
+using System.Net.Security;
 
 namespace ServerSide
 {
@@ -28,20 +29,20 @@ namespace ServerSide
             object? result = method.Invoke(null, parameterValues); // Вызываем метод
             if (result == null) // Если метод вернул null то посылай нахуй
             {
-                throw new InvalidOperationException("Method invocation returned null."); 
+                throw new InvalidOperationException("Method invocation returned null.");
             }
             Console.WriteLine("Result: " + result);
             return (string)result; // Возвращаем результат перед этим приобразовав его в строку
         }
+
         public static void LoginHandler(object obj)
         {
-            TcpClient client = (TcpClient)obj; // Получаем клиента из объекта
-            NetworkStream stream = client.GetStream(); // Получаем поток клиента
+            SslStream stream = (SslStream)obj; // Получаем поток клиента
             byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
             int bytesRead; // Переменная для количества прочитанных байт
             try // Обработка исключений
             {
-                while (client.Connected && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
                 {
                     string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
 
@@ -67,7 +68,7 @@ namespace ServerSide
                                 if (SQLhelper.CheckUser(json["username"], json["password"])) // Проверка на наличие пользователя в базе данных
                                 {
                                     status.Add("status", "OK"); // Создаем ответ
-                                    if(SQLhelper.IsTeacher(json["username"]))
+                                    if (SQLhelper.IsTeacher(json["username"]))
                                     {
                                         status.Add("role", "teacher");
                                     }
@@ -78,7 +79,7 @@ namespace ServerSide
 
                                     byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
                                     stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
-                                    ClientHandler(client);
+                                    ClientHandler(stream);
                                     // И тут переход к следующему Handler
                                 }
                                 else
@@ -98,19 +99,19 @@ namespace ServerSide
             }
             finally
             {
-                client.Close();
+                stream.Close();
             }
         }
+
         public static void ClientHandler(object obj)
         {
-            TcpClient client = (TcpClient)obj; // Получаем клиента из объекта
-            NetworkStream stream = client.GetStream(); // Получаем поток клиента
+            SslStream stream = (SslStream)obj; // Получаем поток клиента
             byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
 
             int bytesRead; // Переменная для количества прочитанных байт
             try
             {
-                while (client.Connected && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
                 {
                     string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
 
@@ -155,7 +156,7 @@ namespace ServerSide
             }
             finally
             {
-                client.Close();
+                stream.Close();
             }
         }
 

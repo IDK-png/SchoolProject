@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net.Sockets;
+using System.Net.Security;
 
 namespace SchoolClient
 {
@@ -40,26 +41,36 @@ namespace SchoolClient
 
         private void button6_Click(object sender, EventArgs e)
         {
-            //label5
             // Send textBox1.Text and textBox2.Text to the server
             // If the server returns "OK" then open the MainScreen
             // If the server returns "NO" then show a MessageBox with "Invalid username or password"
             Connection connection = Connection.Instance;
-            TcpClient client = connection.client;
-            // Format of the message is : {"name": "", "surname": "", "age": "", "grade": "", "course": ""}
-            client.Client.Send(Encoding.ASCII.GetBytes("{\"requestType\":\"GetStudentsByParams\", \"name\": \"" + textBox1.Text + "\", \"surname\": \"" + textBox2.Text + "\", \"age\": \"" + textBox3.Text + "\", \"grade\": \"" + textBox4.Text + "\", \"megamot\": \"" + textBox5.Text + "\"}"));
-            byte[] buffer = new byte[1024];
-            int bytesRead = client.Client.Receive(buffer);
-            string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+            SslStream sslStream = connection.SslStream;
 
-            string[] x = response.Split(' ');
-            response = "";
-            for (int i=0; i<x.Length-5; i+=5)
+            try
             {
-                response += "Name: " + x[i + 1] + "\nSurname: " + x[i + 2] + "\nAge: " + x[i + 3] + "\nGrade: " + x[i + 4] + "\n\n";
-            }
+                // Format of the message is : {"name": "", "surname": "", "age": "", "grade": "", "course": ""}
+                byte[] message = Encoding.ASCII.GetBytes("{\"requestType\":\"GetStudentsByParams\", \"name\": \"" + textBox1.Text + "\", \"surname\": \"" + textBox2.Text + "\", \"age\": \"" + textBox3.Text + "\", \"grade\": \"" + textBox4.Text + "\", \"megamot\": \"" + textBox5.Text + "\"}");
+                sslStream.Write(message);
+                sslStream.Flush();
 
-            MessageBox.Show(response);
+                byte[] buffer = new byte[1024];
+                int bytesRead = sslStream.Read(buffer, 0, buffer.Length);
+                string response = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+
+                string[] x = response.Split(' ');
+                response = "";
+                for (int i = 0; i < x.Length - 5; i += 5)
+                {
+                    response += "Name: " + x[i + 1] + "\nSurname: " + x[i + 2] + "\nAge: " + x[i + 3] + "\nGrade: " + x[i + 4] + "\n\n";
+                }
+
+                MessageBox.Show(response);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SSL communication failed: " + ex.Message);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -74,7 +85,9 @@ namespace SchoolClient
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            Teachers mainScreen = new Teachers();
+            mainScreen.Show();
+            this.Hide();
         }
 
         private void button3_Click(object sender, EventArgs e)

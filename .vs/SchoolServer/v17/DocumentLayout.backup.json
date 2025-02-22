@@ -1,18 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\",
+  "WorkspaceRootPath": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\source\\repos\\schoolserver\\schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\source\\repos\\schoolserver\\schoolserver\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\source\\repos\\schoolserver\\schoolserver\\schoolserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\schoolserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\schoolserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,34 +26,51 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
+              "Title": "JsonHelper.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\JsonHelper.cs",
+              "RelativeDocumentMoniker": "SchoolServer\\JsonHelper.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\JsonHelper.cs",
+              "RelativeToolTip": "SchoolServer\\JsonHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T21:28:45.981Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Handlers.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\Handlers.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\Handlers.cs",
               "RelativeDocumentMoniker": "SchoolServer\\Handlers.cs",
-              "ToolTip": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\Handlers.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\Handlers.cs",
               "RelativeToolTip": "SchoolServer\\Handlers.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAApwDQAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAQwKgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T11:46:51.874Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "SQLhelper.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SQLhelper.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SQLhelper.cs",
               "RelativeDocumentMoniker": "SchoolServer\\SQLhelper.cs",
-              "ToolTip": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SQLhelper.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SQLhelper.cs",
               "RelativeToolTip": "SchoolServer\\SQLhelper.cs",
-              "ViewState": "AgIAACsAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANwAAAAAAAAAAAAAAOEAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T11:28:56.388Z",
               "EditorCaption": ""
@@ -58,18 +79,14 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "SchoolServer.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.cs",
               "RelativeDocumentMoniker": "SchoolServer\\SchoolServer.cs",
-              "ToolTip": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.cs",
               "RelativeToolTip": "SchoolServer\\SchoolServer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAcwBAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T11:04:04.814Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             }
           ]
         }

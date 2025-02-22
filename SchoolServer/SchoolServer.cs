@@ -1,57 +1,106 @@
 ﻿using System;
-using System.Net;
 using System.IO;
+using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Threading;
-using System.Data.SQLite;
-using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
+using System.Net.Security;
+using System.Threading;
+using System.Text;
 
 namespace ServerSide
 {
     class SchoolServer
     {
-        private static TcpListener? _server; // Сам Listener который отвечает за прослушивание определенного порта
-        private static bool _isRunning; // Переменная для проверки работы сервера, не обязательна но удобна
-        private static int port = 76; // Порт сервера
-        static int Main(string[] args) // Main функция
-        {
-            _server = new TcpListener(IPAddress.Any, port); // Создаем новый Listener на порту 76
-            _server.Start(); // Запускаем сервер
-            _isRunning = true; // Устанавливаем переменную работы сервера в true
+        private static TcpListener? _server;               // TCP-сервер для прослушивания подключений
+        private static bool _isRunning;                   // Флаг для управления состоянием сервера
+        private static readonly int port = 76;            // Порт для сервера
+        private static X509Certificate2? _serverCertificate; // Сертификат сервера для SSL
 
-            Console.WriteLine("Connecting to database...");
-            if(SQLhelper.CreateDatabase() == null)
+        static int Main(string[] args)
+        {
+            Console.OutputEncoding = Encoding.UTF8;
+            try
             {
-                Console.WriteLine("Database connection failed.");
+                // Загрузка SSL-сертификата (путь и пароль)
+                _serverCertificate = new X509Certificate2(
+                    "C:/Users/maxda/Documents/GitHub/SchoolProject/SchoolServer/certificate.pfx",
+                    "pass"
+                );
+
+                _server = new TcpListener(IPAddress.Any, port);
+                _server.Start();
+                _isRunning = true;
+
+                Console.WriteLine($"✅ Server started on port {port}");
+                Console.WriteLine("🔗 Connecting to the database...");
+
+                if (SQLhelper.CreateDatabase() == null)
+                {
+                    Console.WriteLine("❌ Database connection error.");
+                    return 1;
+                }
+
+                Console.WriteLine("📚 Adding students to the database...");
+                AddSampleStudents();
+
+                Console.WriteLine("🚀 Waiting for client connections...");
+
+                while (_isRunning)
+                {
+                    TcpClient newClient = _server.AcceptTcpClient();
+                    string clientIP = ((IPEndPoint)newClient.Client.RemoteEndPoint!).Address.ToString();
+
+                    Console.WriteLine($"🔔 New client connected: {clientIP}");
+
+                    Thread clientThread = new Thread(() => HandleClient(newClient));
+                    clientThread.Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"❌ Server error: {ex.Message}");
                 return 1;
             }
 
-            Console.WriteLine("Server started on port " + port); // Выводим сообщение о запуске сервера
+            return 0;
+        }
 
-            // Add with SQLhelper.AddStudent 10 random students with israeli names and chemistry/biology/math in megamot argument
-            // name, surname, age, grade, subject
+        private static void HandleClient(TcpClient client)
+        {
+            using NetworkStream networkStream = client.GetStream();
+            using SslStream sslStream = new SslStream(networkStream, false);
+
+            try
+            {
+                if (_serverCertificate == null)
+                    throw new InvalidOperationException("⚠️ Сертификат сервера не загружен.");
+
+                // Аутентификация сервера с использованием сертификата
+                sslStream.AuthenticateAsServer(_serverCertificate, clientCertificateRequired: false, checkCertificateRevocation: true);
+                Console.WriteLine("🔒 SSL connection established.");
+
+                // Вызов метода обработки логина (или другого обработчика)
+                Handlers.LoginHandler(sslStream);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"⚠️ Error handling client: {ex.Message}");
+            }
+            finally
+            {
+                Console.WriteLine("🔌 Client connection closed.");
+                client.Close();
+            }
+        }
+
+        private static void AddSampleStudents()
+        {
             SQLhelper.AddStudent("Moshe", "Cohen", 16, 10, "math");
             SQLhelper.AddStudent("Yosef", "Ben-David", 15, 9, "chemistry");
             SQLhelper.AddStudent("Avraham", "Cohen", 16, 10, "math");
             SQLhelper.AddStudent("Yitzhak", "Levi", 17, 11, "biology");
             SQLhelper.AddStudent("Yaakov", "Ben-David", 15, 9, "chemistry");
             SQLhelper.AddStudent("David", "Levi", 17, 11, "biology");
-            while (_isRunning) // Бесконечный цикл для принятия множество клиентов
-            {
-                TcpClient newClient = _server.AcceptTcpClient(); // Принимаем нового клиента
-                IPEndPoint clientEndPoint = (IPEndPoint)newClient.Client.RemoteEndPoint!; // Получаем информацию о клиенте
-                
-                string clientIP = clientEndPoint.Address.ToString(); // Получаем IP клиента
-                string logMessage = "New client connected: " + clientIP; // Создаем сообщение о подключении клиента
-
-                Console.WriteLine(logMessage); // Выводим сообщение о подключении нового клиента
-
-                Thread clientThread = new Thread(Handlers.LoginHandler!); // Создаем новый поток для обработки клиента
-                clientThread.Start(newClient); // Запускаем поток и передаем в него клиента
-            }
-            return 0;
         }
     }
 }

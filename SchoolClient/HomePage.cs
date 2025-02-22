@@ -23,5 +23,12 @@ namespace SchoolClient
             mainScreen.Show();
             this.Hide();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Teachers mainScreen = new Teachers();
+            mainScreen.Show();
+            this.Hide();
+        }
     }
 }

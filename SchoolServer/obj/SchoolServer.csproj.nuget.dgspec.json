@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.csproj": {}
+    "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.csproj": {}
   },
   "projects": {
-    "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.csproj": {
+    "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.csproj",
+        "projectUniqueName": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.csproj",
         "projectName": "SchoolServer",
-        "projectPath": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\SchoolServer.csproj",
+        "projectPath": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.csproj",
         "packagesPath": "C:\\Users\\maxda\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\maxda\\source\\repos\\SchoolServer\\SchoolServer\\obj\\",
+        "outputPath": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

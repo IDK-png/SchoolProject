@@ -223,5 +223,19 @@ namespace ServerSide
             return false;
         }
 
+        public static string GetAllTeachers()
+        {
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select * from teachers";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            StringBuilder result = new StringBuilder();
+            while (reader.Read())
+            {
+                result.AppendLine($"{reader["name"]} {reader["surname"]} {reader["megamot"]}");
+            }
+            return result.ToString();
+        }
+
     }
 }
