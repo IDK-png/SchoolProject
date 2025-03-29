@@ -101,6 +101,10 @@ namespace ServerSide
             SQLhelper.AddStudent("Yitzhak", "Levi", 17, 11, "biology");
             SQLhelper.AddStudent("Yaakov", "Ben-David", 15, 9, "chemistry");
             SQLhelper.AddStudent("David", "Levi", 17, 11, "biology");
+
+            SQLhelper.AddTeacher("Rivka", "Cohen", "math");
+            SQLhelper.AddTeacher("Leah", "Ben-David", "chemistry");
+            SQLhelper.AddTeacher("Rachel", "Levi", "biology");
         }
     }
 }

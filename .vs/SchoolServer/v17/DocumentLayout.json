@@ -7,12 +7,12 @@
       "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\sqlhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\schoolserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\schoolserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|solutionrelative:schoolserver\\handlers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{15E8B1C9-2514-46E2-B105-000A6CF947E5}|SchoolServer\\SchoolServer.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolserver\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,12 +46,11 @@
               "RelativeToolTip": "SchoolServer\\JsonHelper.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:28:45.981Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-22T21:28:45.981Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Handlers.cs",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\Handlers.cs",
               "RelativeDocumentMoniker": "SchoolServer\\Handlers.cs",
@@ -59,8 +58,7 @@
               "RelativeToolTip": "SchoolServer\\Handlers.cs",
               "ViewState": "AgIAAHkAAAAAAAAAAAAQwKgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-22T11:46:51.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-22T11:46:51.874Z"
             },
             {
               "$type": "Document",
@@ -70,20 +68,20 @@
               "RelativeDocumentMoniker": "SchoolServer\\SQLhelper.cs",
               "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SQLhelper.cs",
               "RelativeToolTip": "SchoolServer\\SQLhelper.cs",
-              "ViewState": "AgIAANwAAAAAAAAAAAAAAOEAAAArAAAAAAAAAA==",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAswOQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T11:28:56.388Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "SchoolServer.cs",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.cs",
               "RelativeDocumentMoniker": "SchoolServer\\SchoolServer.cs",
               "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolServer\\SchoolServer.cs",
               "RelativeToolTip": "SchoolServer\\SchoolServer.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAcwBAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAmwGoAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-11-22T11:04:04.814Z",
               "EditorCaption": ""

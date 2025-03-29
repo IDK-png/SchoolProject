@@ -151,10 +151,31 @@ namespace ServerSide
                 Console.WriteLine("Teacher with this name already exists.");
                 return;
             }
-            NewUser(id, name, "123", false);
             string sql = "insert into teachers (name, surname, megamot) values ('" + name + "', '" + surname + "', '" + megamot + "')";
             SQLiteCommand command = new SQLiteCommand(sql, connection);
             command.ExecuteNonQuery();
+
+            id = GetIdByName("teachers", name); // Get the new teacher's id after insertion
+
+            // Check if the id already exists in the users table
+            if (!IsUserExistById(id))
+            {
+                NewUser(id, name, "123", false); // Create a new user for the teacher
+            }
+            else
+            {
+                Console.WriteLine("User with this id already exists.");
+            }
+        }
+
+        public static bool IsUserExistById(int id)
+        {
+            if (connection == null) throw new Exception("Connection is not initialized");
+            string sql = "select * from users where id = @id";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.Parameters.AddWithValue("@id", id);
+            SQLiteDataReader reader = command.ExecuteReader();
+            return reader.Read();
         }
 
         public static void DeleteStudent(int id)
@@ -176,6 +197,35 @@ namespace ServerSide
                 return int.Parse(reader["id"].ToString()!);
             }
             return -1;
+        }
+
+        public static string GetStudentMarks(string studentName)
+        {
+            if (connection == null) throw new Exception("Connection is not initialized");
+
+            // Get the student's ID by name
+            int studentId = GetIdByName("students", studentName);
+            if (studentId == -1)
+            {
+                return "Student does not exist.";
+            }
+
+            // Get the student's marks
+            string sql = "select * from marks where student_id = @studentId";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.Parameters.AddWithValue("@studentId", studentId);
+            SQLiteDataReader reader = command.ExecuteReader();
+            StringBuilder result = new StringBuilder();
+            while (reader.Read())
+            {
+                result.AppendLine($"{reader["id"]} {reader["student_id"]} {reader["teacher_id"]} {reader["mark"]} {reader["date"]} {reader["megama"]}");
+            }
+
+            if (result.Length == 0)
+            {
+                return "No marks found for this student.";
+            }
+            return result.ToString();
         }
 
         public static void AddMark(int student_id, int teacher_id, int mark, string date, string megama)
@@ -201,6 +251,8 @@ namespace ServerSide
             SQLiteCommand command = new SQLiteCommand(sql, connection);
             command.ExecuteNonQuery();
         }
+
+
 
         public static void UpdateStudent(int id, string name, string surname, int age, int grade, string megamot)
         {
