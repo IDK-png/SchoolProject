@@ -11,17 +11,17 @@ namespace ServerSide
 {
     class SchoolServer
     {
-        private static TcpListener? _server;               // TCP-сервер для прослушивания подключений
-        private static bool _isRunning;                   // Флаг для управления состоянием сервера
-        private static readonly int port = 76;            // Порт для сервера
-        private static X509Certificate2? _serverCertificate; // Сертификат сервера для SSL
+        private static TcpListener? _server;               // TCP-Server for listening to incoming connections
+        private static bool _isRunning;                   // Flag indicating if the server is running
+        private static readonly int port = 76;            // Port number for the server to listen on
+        private static X509Certificate2? _serverCertificate; // Certificate for SSL/TLS encryption
 
         static int Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8;
             try
             {
-                // Загрузка SSL-сертификата (путь и пароль)
+                // Load the server certificate from a file
                 _serverCertificate = new X509Certificate2(
                     "C:/Users/maxda/Documents/GitHub/SchoolProject/SchoolServer/certificate.pfx",
                     "pass"
@@ -73,13 +73,13 @@ namespace ServerSide
             try
             {
                 if (_serverCertificate == null)
-                    throw new InvalidOperationException("⚠️ Сертификат сервера не загружен.");
+                    throw new InvalidOperationException("⚠️ Server certificate not loaded.");
 
-                // Аутентификация сервера с использованием сертификата
+                // Authenticate the server using the certificate
                 sslStream.AuthenticateAsServer(_serverCertificate, clientCertificateRequired: false, checkCertificateRevocation: true);
                 Console.WriteLine("🔒 SSL connection established.");
 
-                // Вызов метода обработки логина (или другого обработчика)
+                // Call the login handler to process the client's request
                 Handlers.LoginHandler(sslStream);
             }
             catch (Exception ex)
@@ -95,16 +95,40 @@ namespace ServerSide
 
         private static void AddSampleStudents()
         {
-            SQLhelper.AddStudent("Moshe", "Cohen", 16, 10, "math");
-            SQLhelper.AddStudent("Yosef", "Ben-David", 15, 9, "chemistry");
             SQLhelper.AddStudent("Avraham", "Cohen", 16, 10, "math");
             SQLhelper.AddStudent("Yitzhak", "Levi", 17, 11, "biology");
             SQLhelper.AddStudent("Yaakov", "Ben-David", 15, 9, "chemistry");
             SQLhelper.AddStudent("David", "Levi", 17, 11, "biology");
+            SQLhelper.AddStudent("Shimon", "Barak", 16, 10, "physics");
+            SQLhelper.AddStudent("Eli", "Mizrahi", 15, 9, "english");
+            SQLhelper.AddStudent("Avi", "Rubin", 17, 11, "history");
+            SQLhelper.AddStudent("Noam", "Katz", 16, 10, "geography");
+            SQLhelper.AddStudent("Daniel", "Greenberg", 15, 9, "literature");
+            SQLhelper.AddStudent("Yonatan", "Shapiro", 17, 11, "computer science");
+            SQLhelper.AddStudent("Omer", "Rosenberg", 16, 10, "art");
+            SQLhelper.AddStudent("Itai", "Segal", 15, 9, "music");
+            SQLhelper.AddStudent("Nadav", "Klein", 17, 11, "physical education");
 
             SQLhelper.AddTeacher("Rivka", "Cohen", "math");
             SQLhelper.AddTeacher("Leah", "Ben-David", "chemistry");
             SQLhelper.AddTeacher("Rachel", "Levi", "biology");
+            SQLhelper.AddTeacher("Sarah", "Goldberg", "physics");
+            SQLhelper.AddTeacher("Miriam", "Friedman", "english");
+            SQLhelper.AddTeacher("Esther", "Katz", "history");
+            SQLhelper.AddTeacher("Chana", "Weiss", "geography");
+            SQLhelper.AddTeacher("Tamar", "Greenberg", "literature");
+            SQLhelper.AddTeacher("Naomi", "Shapiro", "computer science");
+            SQLhelper.AddTeacher("Dina", "Rosenberg", "art");
+            SQLhelper.AddTeacher("Shoshana", "Mizrahi", "music");
+            SQLhelper.AddTeacher("Batya", "Segal", "physical education");
+            SQLhelper.AddTeacher("Malka", "Klein", "math");
+            SQLhelper.AddTeacher("Gila", "Stein", "chemistry");
+            SQLhelper.AddTeacher("Yehudit", "Baron", "biology");
+            SQLhelper.AddTeacher("Hannah", "Abramson", "physics");
+            SQLhelper.AddTeacher("Ora", "Rubin", "english");
+            SQLhelper.AddTeacher("Zahava", "Cohen", "history");
+            SQLhelper.AddTeacher("Tzivia", "Levin", "geography");
+            SQLhelper.AddTeacher("Pnina", "Gross", "literature");
         }
     }
 }

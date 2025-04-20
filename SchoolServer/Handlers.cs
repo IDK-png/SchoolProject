@@ -15,45 +15,82 @@ namespace ServerSide
     {
         public static string InvokeSqlHelperMethod(string methodName, Dictionary<string, string> parameters)
         {
-            MethodInfo? method = typeof(SQLhelper).GetMethod(methodName); // Получаем метод по имени, с помощью вызова метода GetMethod у класса Type
+            MethodInfo? method = typeof(SQLhelper).GetMethod(methodName); // Get method by name using GetMethod of Type class
             Console.WriteLine("Method name: " + methodName + "\n Is Found?: " + (method != null));
-            if (method == null) // Если метод не найден то посылай нахуй
+            if (method == null) // If method not found, throw exception
             {
                 throw new ArgumentException("Method not found: " + methodName);
             }
 
-            var parameterValues = method.GetParameters() // Получаем параметры метода
-                                        .Select(p => parameters.ContainsKey(p.Name!) ? parameters[p.Name!] : null) // Выбираем значения параметров из словаря
-                                        .ToArray(); // Преобразуем в массив
-            Console.WriteLine("Parameters: " + string.Join(", ", parameterValues));
-            object? result = method.Invoke(null, parameterValues); // Вызываем метод
-            if (result == null) // Если метод вернул null то посылай нахуй
+            var methodParams = method.GetParameters(); // Get method parameters
+            object[] parameterValues = new object[methodParams.Length];
+
+            for (int i = 0; i < methodParams.Length; i++)
             {
-                throw new InvalidOperationException("Method invocation returned null.");
+                var param = methodParams[i];
+                if (parameters.ContainsKey(param.Name!))
+                {
+                    string paramValue = parameters[param.Name!];
+                    
+                    // Convert string value to required type
+                    if (param.ParameterType == typeof(int))
+                    {
+                        parameterValues[i] = int.Parse(paramValue);
+                    }
+                    else if (param.ParameterType == typeof(bool))
+                    {
+                        parameterValues[i] = bool.Parse(paramValue);
+                    }
+                    else if (param.ParameterType == typeof(double))
+                    {
+                        parameterValues[i] = double.Parse(paramValue);
+                    }
+                    else if (param.ParameterType == typeof(float))
+                    {
+                        parameterValues[i] = float.Parse(paramValue);
+                    }
+                    else
+                    {
+                        parameterValues[i] = paramValue;
+                    }
+                }
+                else
+                {
+                    parameterValues[i] = param.ParameterType.IsValueType ? Activator.CreateInstance(param.ParameterType)! : null!;
+                }
             }
+
+            Console.WriteLine("Parameters: " + string.Join(", ", parameterValues));
+            object? result = method.Invoke(null, parameterValues); // Invoke method
+            
+            if (result == null) // If method returned null
+            {
+                return "Operation completed successfully.";
+            }
+            
             Console.WriteLine("Result: " + result);
-            return (string)result; // Возвращаем результат перед этим приобразовав его в строку
+            return result.ToString()!; // Return result as string
         }
 
         public static void LoginHandler(object obj)
         {
-            SslStream stream = (SslStream)obj; // Получаем поток клиента
-            byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
-            int bytesRead; // Переменная для количества прочитанных байт
-            try // Обработка исключений
+            SslStream stream = (SslStream)obj; // Get client stream
+            byte[] buffer = new byte[1024]; // Create buffer for receiving data
+            int bytesRead; // Variable for number of bytes read
+            try // Exception handling
             {
-                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Loop for receiving data from client
                 {
-                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
+                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Get message from client
 
-                    message.Trim(); // Удаляем лишние пробелы
+                    message = message.Trim(); // Remove extra spaces
 
-                    if ((message[0] - 0) > 32) // Проверка на то что первый символ в сообщении - это буква
+                    if ((message[0] - 0) > 32) // Check if first character is a letter
                     {
                         Console.WriteLine("Received: " + message); // {username, password}
 
-                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Десериализуем сообщение
-                        if (json == null) // Проверка на успешное десериализацию
+                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Deserialize message
+                        if (json == null) // Check for successful deserialization
                         {
                             Console.WriteLine("Error while deserializing message.");
                             // example json format: {"username": "admin", "password": "admin"}
@@ -62,31 +99,45 @@ namespace ServerSide
                         {
                             if (json.ContainsKey("username") && json.ContainsKey("password"))
                             {
-                                Console.WriteLine("Deserialized: " + json["username"] + " " + json["password"]); // Выводим десериализованное сообщение
+                                Console.WriteLine("Deserialized: " + json["username"] + " " + json["password"]); // Print deserialized message
 
-                                Dictionary<string, string> status = new Dictionary<string, string>(); // Создаем словарь для ответа
-                                if (SQLhelper.CheckUser(json["username"], json["password"])) // Проверка на наличие пользователя в базе данных
+                                Dictionary<string, string> status = new Dictionary<string, string>(); // Create response dictionary
+                                // Check if user exists
+                                if (SQLhelper.IsUserExist(json["username"]))
                                 {
-                                    status.Add("status", "OK"); // Создаем ответ
-                                    if (SQLhelper.IsTeacher(json["username"]))
+                                    // Check password correctness
+                                    if (SQLhelper.CheckUser(json["username"], json["password"]))
                                     {
-                                        status.Add("role", "teacher");
+                                        status.Add("status", "OK"); // Create response
+                                        if (SQLhelper.IsTeacher(json["username"]))
+                                        {
+                                            status.Add("role", "teacher");
+                                        }
+                                        else
+                                        {
+                                            status.Add("role", "student");
+                                        }
+
+                                        byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n");
+                                        stream.Write(response, 0, response.Length); // Send response to client
+                                        ClientHandler(stream);
+                                        // And here switch to next Handler
                                     }
                                     else
                                     {
-                                        status.Add("role", "student");
+                                        status.Add("status", "Login failed"); // Wrong password
+                                        byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n");
+                                        stream.Write(response, 0, response.Length);
                                     }
-
-                                    byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
-                                    stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
-                                    ClientHandler(stream);
-                                    // И тут переход к следующему Handler
                                 }
                                 else
                                 {
-                                    status.Add("status", "Login failed"); // Создаем ответ
-                                    byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n"); // Создаем ответ
-                                    stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                                    // User does not exist, send login error
+                                    status.Add("status", "Login failed"); // User does not exist
+                                    status.Add("message", "User does not exist");
+                                    byte[] response = Encoding.ASCII.GetBytes(JsonHelper.Serialize(status) + "\n");
+                                    stream.Write(response, 0, response.Length);
+                                    Console.WriteLine($"Login attempt with non-existent username: {json["username"]}");
                                 }
                             }
                         }
@@ -105,47 +156,48 @@ namespace ServerSide
 
         public static void ClientHandler(object obj)
         {
-            SslStream stream = (SslStream)obj; // Получаем поток клиента
-            byte[] buffer = new byte[1024]; // Создаем буфер для получения данных
+            SslStream stream = (SslStream)obj; // Get client stream
+            byte[] buffer = new byte[1024]; // Create buffer for receiving data
 
-            int bytesRead; // Переменная для количества прочитанных байт
+            int bytesRead; // Variable for number of bytes read
             try
             {
-                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Цикл для получения данных от клиента
+                while (stream.CanRead && (bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0) // Loop for receiving data from client
                 {
-                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Получаем сообщение от клиента
+                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead); // Get message from client
 
-                    message.Trim(); // Удаляем лишние пробелы
+                    message = message.Trim(); // Remove extra spaces
 
-                    if ((message[0] - 0) > 32) // Проверка на то что первый символ в сообщении - это буква
+                    if ((message[0] - 0) > 32) // Check if first character is a letter
                     {
                         Console.WriteLine("Received: " + message); // {username, password}
                         // example json format: {"name": "Moshe", "surname": "Cohen", "age": "16", "grade": "10", "megamot": "math"}
                         // Convert json to dictionary
-                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Десериализуем сообщение
-                        if (json == null) // Проверка на успешное десериализацию
+                        Dictionary<string, string>? json = JsonHelper.Deserialize<Dictionary<string, string>>(message); // Deserialize message
+                        if (json == null) // Check for successful deserialization
                         {
-                            byte[] response = Encoding.ASCII.GetBytes("Invalid JSON format\n"); // Создаем ответ
-                            stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                            byte[] response = Encoding.ASCII.GetBytes("Invalid JSON format\n"); // Create response
+                            stream.Write(response, 0, response.Length); // Send response to client
                         }
                         else if (json.ContainsKey("requestType"))
                         {
                             try
                             {
+                                // Standard processing for other requests
                                 string response = InvokeSqlHelperMethod(json["requestType"], json);
                                 byte[] responseBytes = Encoding.ASCII.GetBytes(response + "\n");
                                 stream.Write(responseBytes, 0, responseBytes.Length);
                             }
                             catch (ArgumentException ex)
                             {
-                                byte[] response = Encoding.ASCII.GetBytes(ex.Message + "\n"); // Создаем ответ
-                                stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                                byte[] response = Encoding.ASCII.GetBytes(ex.Message + "\n"); // Create response
+                                stream.Write(response, 0, response.Length); // Send response to client
                             }
                         }
                         else
                         {
-                            byte[] response = Encoding.ASCII.GetBytes("Request type not found!\n"); // Создаем ответ
-                            stream.Write(response, 0, response.Length); // Отправляем ответ клиенту
+                            byte[] response = Encoding.ASCII.GetBytes("Request type not found!\n"); // Create response
+                            stream.Write(response, 0, response.Length); // Send response to client
                         }
                     }
                 }

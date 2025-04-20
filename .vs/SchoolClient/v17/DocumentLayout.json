@@ -3,6 +3,38 @@
   "WorkspaceRootPath": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\marks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\marks.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -11,40 +43,20 @@
       "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\marks.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\marks.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\loginscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\loginscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\loginscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\loginscreen.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\jsonhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\searchstudents.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|c:\\users\\maxda\\documents\\github\\schoolproject\\schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\teachers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\schoolclient\\homepageteacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A1594E81-18A9-4D52-8C18-3EA787548AA9}|SchoolClient\\SchoolClient.csproj|solutionrelative:schoolclient\\homepageteacher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,58 +78,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HomePage.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\HomePage.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs [Design]",
-              "RelativeToolTip": "SchoolClient\\HomePage.cs [Design]",
+              "DocumentIndex": 6,
+              "Title": "Marks.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Marks.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\Marks.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Marks.cs [Design]",
+              "RelativeToolTip": "SchoolClient\\Marks.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:53:08.092Z",
+              "WhenOpened": "2025-04-20T04:34:57.955Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "HomePage.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\HomePage.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
-              "RelativeToolTip": "SchoolClient\\HomePage.cs",
-              "ViewState": "AgIAAHsAAAAAAAAAAADgv4wAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:53:09.886Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Program.cs",
               "RelativeDocumentMoniker": "SchoolClient\\Program.cs",
               "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Program.cs",
               "RelativeToolTip": "SchoolClient\\Program.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAswA0AAAA6AAAAAAAAAA==",
+              "ViewState": "AgIAADwAAAAAAAAAAAAgwA0AAAA6AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T21:11:36.918Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "LoginScreen.Designer.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.Designer.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\LoginScreen.Designer.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.Designer.cs",
-              "RelativeToolTip": "SchoolClient\\LoginScreen.Designer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-29T21:14:49.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "LoginScreen.cs [Design]",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.cs",
               "RelativeDocumentMoniker": "SchoolClient\\LoginScreen.cs",
@@ -129,20 +115,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "LoginScreen.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\LoginScreen.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.cs",
-              "RelativeToolTip": "SchoolClient\\LoginScreen.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAA2wDAAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 9,
+              "Title": "HomePage.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\HomePage.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs [Design]",
+              "RelativeToolTip": "SchoolClient\\HomePage.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:32:59.286Z",
+              "WhenOpened": "2025-02-22T21:53:08.092Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "HomePage.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\HomePage.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePage.cs",
+              "RelativeToolTip": "SchoolClient\\HomePage.cs",
+              "ViewState": "AgIAALIAAAAAAAAAAAAowL8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T21:53:09.886Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "SearchStudents.cs [Design]",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\SearchStudents.cs",
               "RelativeDocumentMoniker": "SchoolClient\\SearchStudents.cs",
@@ -154,7 +152,45 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
+              "Title": "SearchStudents.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\SearchStudents.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\SearchStudents.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\SearchStudents.cs",
+              "RelativeToolTip": "SchoolClient\\SearchStudents.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAA9wHEAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T21:33:31.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Teachers.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\Teachers.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs [Design]",
+              "RelativeToolTip": "SchoolClient\\Teachers.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T21:50:49.134Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Teachers.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\Teachers.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
+              "RelativeToolTip": "SchoolClient\\Teachers.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAA1wG0AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T21:52:29.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "JsonHelper.cs",
               "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\JsonHelper.cs",
               "RelativeDocumentMoniker": "SchoolClient\\JsonHelper.cs",
@@ -167,40 +203,53 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "SearchStudents.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\SearchStudents.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\SearchStudents.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\SearchStudents.cs",
-              "RelativeToolTip": "SchoolClient\\SearchStudents.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAqwCkAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "Marks.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Marks.Designer.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\Marks.Designer.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Marks.Designer.cs",
+              "RelativeToolTip": "SchoolClient\\Marks.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:33:31.308Z",
+              "WhenOpened": "2025-04-20T04:35:03.164Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "Teachers.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\Teachers.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs [Design]",
-              "RelativeToolTip": "SchoolClient\\Teachers.cs [Design]",
+              "DocumentIndex": 13,
+              "Title": "HomePageTeacher.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePageTeacher.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\HomePageTeacher.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\HomePageTeacher.cs",
+              "RelativeToolTip": "SchoolClient\\HomePageTeacher.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAASwBcAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:50:49.134Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-04-20T02:11:58.792Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Teachers.cs",
-              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
-              "RelativeDocumentMoniker": "SchoolClient\\Teachers.cs",
-              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\Teachers.cs",
-              "RelativeToolTip": "SchoolClient\\Teachers.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAiwCEAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 11,
+              "Title": "LoginScreen.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\LoginScreen.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.cs",
+              "RelativeToolTip": "SchoolClient\\LoginScreen.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAgwFEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:52:29.201Z",
+              "WhenOpened": "2025-02-22T21:32:59.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "LoginScreen.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.Designer.cs",
+              "RelativeDocumentMoniker": "SchoolClient\\LoginScreen.Designer.cs",
+              "ToolTip": "C:\\Users\\maxda\\Documents\\GitHub\\SchoolProject\\SchoolClient\\LoginScreen.Designer.cs",
+              "RelativeToolTip": "SchoolClient\\LoginScreen.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-29T21:14:49.419Z",
               "EditorCaption": ""
             }
           ]

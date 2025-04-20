@@ -105,7 +105,9 @@ namespace SchoolClient
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            Marks mainScreen = new Marks();
+            mainScreen.Show();
+            this.Hide();
         }
 
         private void button4_Click(object sender, EventArgs e)

@@ -186,5 +186,12 @@ namespace SchoolClient
                 MessageBox.Show("SSL communication failed: " + ex.Message);
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Marks mainScreen = new Marks();
+            mainScreen.Show();
+            this.Hide();
+        }
     }
 }

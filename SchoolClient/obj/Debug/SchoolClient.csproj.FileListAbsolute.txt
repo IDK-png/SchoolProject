@@ -35,3 +35,4 @@ C:\Users\maxda\Documents\GitHub\SchoolProject\SchoolClient\obj\Debug\SchoolCl.9A
 C:\Users\maxda\Documents\GitHub\SchoolProject\SchoolClient\obj\Debug\SchoolClient.exe
 C:\Users\maxda\Documents\GitHub\SchoolProject\SchoolClient\obj\Debug\SchoolClient.pdb
 C:\Users\maxda\Documents\GitHub\SchoolProject\SchoolClient\obj\Debug\SchoolClient.Teachers.resources
+C:\Users\maxda\Documents\GitHub\SchoolProject\SchoolClient\obj\Debug\SchoolClient.Marks.resources

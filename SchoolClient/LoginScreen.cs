@@ -19,7 +19,6 @@ namespace SchoolClient
         {
             InitializeComponent();
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
             // Send textBox1.Text and textBox2.Text to the server
@@ -51,28 +50,45 @@ namespace SchoolClient
                         if (json.ContainsKey("role") && json["role"] == "teacher")
                         {
                             Connection.isTeacher = true;
+                            HomePageTeacher teacherScreen = new HomePageTeacher();
+                            teacherScreen.Show();
+                            this.Hide();
                         }
                         else
                         {
                             Connection.isTeacher = false;
+                            HomePage mainScreen = new HomePage();
+                            mainScreen.Show();
+                            this.Hide();
                         }
-
-                        HomePage mainScreen = new HomePage();
-                        mainScreen.Show();
-                        this.Hide();
                     }
-
-                    MessageBox.Show(response);
+                    else
+                    {
+                        // Show a user-friendly login error message
+                        string errorMessage = "Login Error: ";
+                        if (json.ContainsKey("message"))
+                        {
+                            // Use the specific message from the server if available
+                            errorMessage += json["message"];
+                        }
+                        else
+                        {
+                            // Fallback to a generic error message
+                            errorMessage += "Invalid username or password";
+                        }
+                        MessageBox.Show(errorMessage, "Login Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 catch (JsonReaderException ex)
                 {
-                    MessageBox.Show("Invalid JSON response: " + ex.Message);
+                    MessageBox.Show("Error parsing server response: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("SSL communication failed: " + ex.Message);
+                MessageBox.Show("Error communicating with the server: " + ex.Message);
             }
         }
+
     }
 }

@@ -52,15 +52,15 @@ namespace ServerSide
 
                 if (!IsUserExist("admin"))
                 {
-                    NewUser(0, "admin", "admin", true);
+                    NewUser("admin", "admin", false);
                 }
                 if (!IsUserExist("student"))
                 {
-                    NewUser(1, "student", "student", true);
+                    NewUser("student", "student", true);
                 }
                 if (!IsUserExist("teacher"))
                 {
-                    NewUser(2, "teacher", "teacher", false);
+                    NewUser("teacher", "teacher", false);
                 }
                 return connection;
             }
@@ -97,14 +97,27 @@ namespace ServerSide
             return result.ToString();
         }
 
-        public static void NewUser(int id, string username, string password, bool isStudent)
+        public static void NewUser(string username, string password, bool isStudent)
         {
             if (connection == null) throw new Exception("Connection is not initialized");
-            string sql = "insert into users (id, username, password, isStudent) values (@id, @username, @password, @isStudent)";
+            string hashedPassword = GetStringSha256Hash(password);
+            // Check: if a user with this username and password already exists, do nothing
+            string checkSql = "select * from users where username = @username and password = @password";
+            SQLiteCommand checkCommand = new SQLiteCommand(checkSql, connection);
+            checkCommand.Parameters.AddWithValue("@username", username);
+            checkCommand.Parameters.AddWithValue("@password", hashedPassword);
+            SQLiteDataReader reader = checkCommand.ExecuteReader();
+            if (reader.Read())
+            {
+                // Such a user already exists, do nothing
+                return;
+            }
+            reader.Close();
+            // Add new user (id will be AUTOINCREMENT)
+            string sql = "insert into users (username, password, isStudent) values (@username, @password, @isStudent)";
             SQLiteCommand command = new SQLiteCommand(sql, connection);
-            command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@username", username);
-            command.Parameters.AddWithValue("@password", GetStringSha256Hash(password));
+            command.Parameters.AddWithValue("@password", hashedPassword);
             command.Parameters.AddWithValue("@isStudent", isStudent);
             command.ExecuteNonQuery();
         }
@@ -130,41 +143,136 @@ namespace ServerSide
         public static void AddStudent(string name, string surname, int age, int grade, string megamot)
         {
             if (connection == null) throw new Exception("Connection is not initialized");
-            int id = GetIdByName("students", name);
-            if (id != -1)
+            
+            // Проверка: если студент с таким именем и фамилией уже есть, не добавлять
+            string checkStudentSql = "select * from students where name = @name and surname = @surname";
+            SQLiteCommand checkStudentCommand = new SQLiteCommand(checkStudentSql, connection);
+            checkStudentCommand.Parameters.AddWithValue("@name", name);
+            checkStudentCommand.Parameters.AddWithValue("@surname", surname);
+            SQLiteDataReader studentReader = checkStudentCommand.ExecuteReader();
+            if (studentReader.Read())
             {
-                Console.WriteLine("Student with this name already exists.");
+                Console.WriteLine($"⚠️ Student {name} {surname} already exists. Not added.");
+                studentReader.Close();
                 return;
             }
-            string sql = "insert into students (name, surname, age, grade, megamot) values ('" + name + "', '" + surname + "', " + age + ", " + grade + ", '" + megamot + "')";
+            studentReader.Close();
+            
+            // Check: if a user with this name already exists, do not add
+            if (IsUserExist(name))
+            {
+                Console.WriteLine($"A user with the name {name} already exists. Student not added.");
+                return;
+            }
+            // Add student to the students table
+            string sql = "insert into students (name, surname, age, grade, megamot) values (@name, @surname, @age, @grade, @megamot)";
             SQLiteCommand command = new SQLiteCommand(sql, connection);
-            // Если нужно создать пользователя для студента, можно вызвать NewUser после вставки и получения id
-            command.ExecuteNonQuery();
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@surname", surname);
+            command.Parameters.AddWithValue("@age", age);
+            command.Parameters.AddWithValue("@grade", grade);
+            command.Parameters.AddWithValue("@megamot", megamot);
+            
+            try
+            {
+                command.ExecuteNonQuery();
+                Console.WriteLine($"Successfully added student: {name} {surname}");
+                
+                // Get the ID of the added student
+                long lastId = connection.LastInsertRowId;
+                
+                // Create a unique username based on the student's name
+                string username = name;
+                int suffix = 0;
+                
+                // Check if a user with this name exists
+                while (IsUserExist(username + (suffix > 0 ? suffix.ToString() : "")))
+                {
+                    suffix++;
+                }
+                
+                // Add suffix if necessary
+                if (suffix > 0)
+                {
+                    username += suffix;
+                }
+                
+                // Create a new user for the student with the surname as the password
+                NewUser(username, surname, true);
+                Console.WriteLine($"Created user account for student: {username} with password: {surname}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding student {name} {surname}: {ex.Message}");
+            }
         }
 
         public static void AddTeacher(string name, string surname, string megamot)
         {
             if (connection == null) throw new Exception("Connection is not initialized");
-            int id = GetIdByName("teachers", name);
-            if (id != -1)
+            
+            // Проверка: если учитель с таким именем и фамилией уже есть, не добавлять
+            string checkTeacherSql = "select * from teachers where name = @name and surname = @surname";
+            SQLiteCommand checkTeacherCommand = new SQLiteCommand(checkTeacherSql, connection);
+            checkTeacherCommand.Parameters.AddWithValue("@name", name);
+            checkTeacherCommand.Parameters.AddWithValue("@surname", surname);
+            SQLiteDataReader teacherReader = checkTeacherCommand.ExecuteReader();
+            if (teacherReader.Read())
             {
-                Console.WriteLine("Teacher with this name already exists.");
+                Console.WriteLine($"⚠️ Teacher {name} {surname} already exists. Not added.");
+                teacherReader.Close();
                 return;
             }
-            string sql = "insert into teachers (name, surname, megamot) values ('" + name + "', '" + surname + "', '" + megamot + "')";
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
-
-            id = GetIdByName("teachers", name); // Get the new teacher's id after insertion
-
-            // Check if the id already exists in the users table
-            if (!IsUserExistById(id))
+            teacherReader.Close();
+            
+            // Check: if a user with this username and password already exists, do not add
+            string username = name;
+            string password = surname;
+            string hashedPassword = GetStringSha256Hash(password);
+            string checkSql = "select * from users where username = @username and password = @password";
+            SQLiteCommand checkCommand = new SQLiteCommand(checkSql, connection);
+            checkCommand.Parameters.AddWithValue("@username", username);
+            checkCommand.Parameters.AddWithValue("@password", hashedPassword);
+            SQLiteDataReader reader = checkCommand.ExecuteReader();
+            if (reader.Read())
             {
-                NewUser(id, name, "123", false); // Create a new user for the teacher
+                Console.WriteLine($"A user with the name {username} already exists. Teacher not added.");
+                reader.Close();
+                return;
             }
-            else
+            reader.Close();
+            // Add teacher to the teachers table
+            string sql = "insert into teachers (name, surname, megamot) values (@name, @surname, @megamot)";
+            SQLiteCommand command = new SQLiteCommand(sql, connection);
+            command.Parameters.AddWithValue("@name", name);
+            command.Parameters.AddWithValue("@surname", surname);
+            command.Parameters.AddWithValue("@megamot", megamot);
+            
+            try
             {
-                Console.WriteLine("User with this id already exists.");
+                command.ExecuteNonQuery();
+                Console.WriteLine($"Successfully added teacher: {name} {surname}");
+                
+                // Get the ID of the added teacher
+                long lastId = connection.LastInsertRowId;
+                
+                // Create a unique username based on the teacher's name
+                int suffix = 0;
+                while (IsUserExist(username + (suffix > 0 ? suffix.ToString() : "")))
+                {
+                    suffix++;
+                }
+                if (suffix > 0)
+                {
+                    username += suffix;
+                }
+                // Create a new user for the teacher with the surname as the password
+                NewUser(username, surname, false); // isStudent = false, because this is a teacher
+                Console.WriteLine($"Created user account for teacher: {username} with password: {surname}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding teacher {name} {surname}: {ex.Message}");
             }
         }
 
@@ -228,12 +336,25 @@ namespace ServerSide
             return result.ToString();
         }
 
-        public static void AddMark(int student_id, int teacher_id, int mark, string date, string megama)
+        public static string AddMark(int student_id, int teacher_id, int mark, string date, string megama)
         {
             if (connection == null) throw new Exception("Connection is not initialized");
-            string sql = "insert into marks (student_id, teacher_id, mark, date, megama) values (" + student_id + ", " + teacher_id + ", " + mark + ", '" + date + "', '" + megama + "')";
-            SQLiteCommand command = new SQLiteCommand(sql, connection);
-            command.ExecuteNonQuery();
+            try
+            {
+                string sql = "insert into marks (student_id, teacher_id, mark, date, megama) values (@student_id, @teacher_id, @mark, @date, @megama)";
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@student_id", student_id);
+                command.Parameters.AddWithValue("@teacher_id", teacher_id);
+                command.Parameters.AddWithValue("@mark", mark);
+                command.Parameters.AddWithValue("@date", date);
+                command.Parameters.AddWithValue("@megama", megama);
+                command.ExecuteNonQuery();
+                return "Mark successfully added";
+            }
+            catch (Exception ex)
+            {
+                return "Error adding mark: " + ex.Message;
+            }
         }
 
         public static void DeleteMark(int id)
@@ -287,6 +408,39 @@ namespace ServerSide
                 result.AppendLine($"{reader["name"]} {reader["surname"]} {reader["megamot"]}");
             }
             return result.ToString();
+        }
+        
+        public static string UpdateUserPassword(string username, string newPassword)
+        {
+            if (connection == null) throw new Exception("Connection is not initialized");
+            try
+            {
+                // Check if the user exists
+                if (!IsUserExist(username))
+                {
+                    return "User not found";
+                }
+                
+                string sql = "UPDATE users SET password = @password WHERE username = @username";
+                SQLiteCommand command = new SQLiteCommand(sql, connection);
+                command.Parameters.AddWithValue("@password", GetStringSha256Hash(newPassword));
+                command.Parameters.AddWithValue("@username", username);
+                int rowsAffected = command.ExecuteNonQuery();
+                
+                if (rowsAffected > 0)
+                {
+                    return "Password updated successfully";
+                }
+                else
+                {
+                    return "Failed to update password (no changes in DB)";
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error updating password: {ex.Message}");
+                return $"Error updating password: {ex.Message}";
+            }
         }
 
     }
